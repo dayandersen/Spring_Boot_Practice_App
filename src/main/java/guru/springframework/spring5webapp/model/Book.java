@@ -1,6 +1,7 @@
 package guru.springframework.spring5webapp.model;
 
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import lombok.Data;
+import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.HashSet;
@@ -25,8 +26,13 @@ public class Book {
     private String title;
     @Getter @Setter
     private String isbn;
+
+    @OneToOne
+//    (cascade = CascadeType.ALL)
+//    @JoinTable(name = "publisher_book", joinColumns = @JoinColumn(name = "book_id"),
+//    inverseJoinColumns = @JoinColumn(name = "publisher_id"))
     @Getter @Setter
-    private String publisher;
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
@@ -38,11 +44,11 @@ public class Book {
 
     }
 
-    public Book(String title, String isbn, String publisher) {
+    public Book(String title, String isbn, Publisher publisher) {
         this(title, isbn, publisher, new HashSet<>());
     }
 
-    public Book(String title, String isbn, String publisher, Set<Author> authors) {
+    public Book(String title, String isbn, Publisher publisher, Set<Author> authors) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;

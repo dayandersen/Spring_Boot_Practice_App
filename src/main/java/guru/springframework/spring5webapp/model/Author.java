@@ -31,8 +31,8 @@ public class Author {
 
     }
 
-    public Author(String fileName, String lastName) {
-        this(fileName, lastName, new HashSet<>());
+    public Author(String firstName, String lastName) {
+        this(firstName, lastName, new HashSet<>());
     }
 
     public Author(String firstName, String lastName, Set<Book> books) {
